@@ -2,9 +2,12 @@ import React from 'react';
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
 
 // components
-import Home from './components/atoms/Home';
-import Movies from './components/atoms/Movies';
-import Admin from './components/atoms/Admin';
+import Home from 'components/atoms/Home';
+import Movies from 'components/atoms/Movies';
+import Admin from 'components/atoms/Admin';
+import Movie from 'components/atoms/Movie';
+import CategoryPage from 'components/atoms/CategoryPage';
+import Categories from 'components/atoms/Categories';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,7 +29,10 @@ export default function App() {
                                     <Link to="/">Home</Link>
                                 </li>
                                 <li className="list-group-item">
-                                    <Link to="/movies">Moivew</Link>
+                                    <Link to="/movies">Moives</Link>
+                                </li>
+                                <li className="list-group-item">
+                                    <Link to="/by-category">Categories</Link>
                                 </li>
                                 <li className="list-group-item">
                                     <Link to="/admin">Manage Catalogue</Link>
@@ -37,9 +43,13 @@ export default function App() {
 
                     <div className="col-md-10">
                         <Routes>
-                            <Route path="/movies" element={<Home />}></Route>
-                            <Route path="/admin" element={<Movies />}></Route>
-                            <Route path="/" element={<Admin />}></Route>
+                            <Route path="/" element={<Home />}></Route>
+                            <Route path="/admin" element={<Admin />}></Route>
+                            <Route path="/by-category" element={<CategoryPage />}></Route>
+                            <Route path="/by-category/drama" element={<Categories title={'Drama'} />}></Route>
+                            <Route path="/by-category/comedy" element={<Categories title={'Comedy'} />}></Route>
+                            <Route path="/movies" element={<Movies />}></Route>
+                            <Route path="/movies/:id" element={<Movie />}></Route>
                         </Routes>
                     </div>
                 </div>

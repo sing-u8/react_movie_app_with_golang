@@ -22,7 +22,9 @@
             "@atoms/*": ["./src/components/atoms/*"],
             "@molecules/*": ["./src/components/molecules/*"],
             "@organisms/*": ["./src/components/organisms/*"],
-            "@templates/*": ["./src/components/templates/*"]
+            "@templates/*": ["./src/components/templates/*"],
+            "@api/*": ["./src/api/*"],
+            "@env/*": ["./src/env/*"]
         },
         "baseUrl": "src"
     },

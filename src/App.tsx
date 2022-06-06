@@ -8,6 +8,7 @@ import Admin from 'components/atoms/Admin';
 import Movie from 'components/atoms/Movie';
 import Genres from 'components/atoms/genres';
 import OneGenre from 'components/atoms/OneGenre';
+import EditMovie from 'components/atoms/EditMovie/EditMovie';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,6 +36,9 @@ export default function App() {
                                     <Link to="/genres">Genres</Link>
                                 </li>
                                 <li className="list-group-item">
+                                    <Link to="/admin/add">Add Movie</Link>
+                                </li>
+                                <li className="list-group-item">
                                     <Link to="/admin">Manage Catalogue</Link>
                                 </li>
                             </ul>
@@ -46,6 +50,7 @@ export default function App() {
                             <Route path="/" element={<Home />}></Route>
 
                             <Route path="/admin" element={<Admin />}></Route>
+                            <Route path="/admin/add" element={<EditMovie />}></Route>
 
                             <Route path="/genres" element={<Genres />}></Route>
                             <Route path="/genre/:id" element={<OneGenre />}></Route>

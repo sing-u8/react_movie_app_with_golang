@@ -26,15 +26,23 @@ export default function genres(props: any) {
 
     return (
         <Fragment>
-            <h2>Genres</h2>
+            {error ? (
+                <div> Error: {error.message}</div>
+            ) : !isLoaded ? (
+                <p>Loading...</p>
+            ) : (
+                <Fragment>
+                    <h2>Genres</h2>
 
-            <ul>
-                {genres.map(m => (
-                    <li key={m.id}>
-                        <Link to={`/genre/${m.id}`}>{m.genre_name}</Link>
-                    </li>
-                ))}
-            </ul>
+                    <ul>
+                        {genres.map(m => (
+                            <li key={m.id}>
+                                <Link to={`/genre/${m.id}`}>{m.genre_name}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </Fragment>
+            )}
         </Fragment>
     );
 }

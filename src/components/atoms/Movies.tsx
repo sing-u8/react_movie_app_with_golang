@@ -8,7 +8,7 @@ import { Movie } from 'schema/movie.interface';
 export default function Movies() {
     const [movies, setMovies] = useState<Array<Movie>>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const [error, setError] = useState<string>('');
+    const [error, setError] = useState<Error>();
 
     useEffect(() => {
         (async function getAllMovies() {
@@ -20,14 +20,16 @@ export default function Movies() {
             } catch (err) {
                 console.log('catch err : ', err);
                 setIsLoaded(true);
-                // setError(err)
+                setError(err as Error);
             }
         })();
     }, []);
 
     return (
         <Fragment>
-            {!isLoaded ? (
+            {error ? (
+                <div> Error: {error.message}</div>
+            ) : !isLoaded ? (
                 <p>Loading...</p>
             ) : (
                 <Fragment>

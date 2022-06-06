@@ -7,6 +7,7 @@ import Movies from 'components/atoms/Movies';
 import Admin from 'components/atoms/Admin';
 import Movie from 'components/atoms/Movie';
 import Genres from 'components/atoms/genres';
+import OneGenre from 'components/atoms/OneGenre';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -43,8 +44,11 @@ export default function App() {
                     <div className="col-md-10">
                         <Routes>
                             <Route path="/" element={<Home />}></Route>
+
                             <Route path="/admin" element={<Admin />}></Route>
+
                             <Route path="/genres" element={<Genres />}></Route>
+                            <Route path="/genre/:id" element={<OneGenre />}></Route>
 
                             <Route path="/movies" element={<Movies />}></Route>
                             <Route path="/movies/:id" element={<Movie />}></Route>

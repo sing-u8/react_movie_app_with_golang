@@ -10,12 +10,12 @@ export default function genres(props: any) {
     const [error, setError] = useState<Error>();
 
     useEffect(() => {
-        (async function getAllMovies() {
+        (async function getAllGeners() {
             try {
                 const json = await genreApi.getAllGenres();
                 setGenres(json.genres);
                 setIsLoaded(true);
-                console.log('movies, isloaded : ', genres, isLoaded);
+                console.log('genres, isloaded : ', json.genres, isLoaded);
             } catch (err) {
                 console.log('catch err : ', err);
                 setIsLoaded(true);
@@ -34,13 +34,20 @@ export default function genres(props: any) {
                 <Fragment>
                     <h2>Genres</h2>
 
-                    <ul>
+                    <div className="list-group">
                         {genres.map(m => (
-                            <li key={m.id}>
-                                <Link to={`/genre/${m.id}`}>{m.genre_name}</Link>
-                            </li>
+                            <Link
+                                key={m.id}
+                                className="list-group-item list-group-item-action"
+                                state={{
+                                    genreName: m.genre_name,
+                                }}
+                                to={`/genre/${m.id}`}
+                            >
+                                {m.genre_name}
+                            </Link>
                         ))}
-                    </ul>
+                    </div>
                 </Fragment>
             )}
         </Fragment>

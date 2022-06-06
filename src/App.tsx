@@ -6,8 +6,7 @@ import Home from 'components/atoms/Home';
 import Movies from 'components/atoms/Movies';
 import Admin from 'components/atoms/Admin';
 import Movie from 'components/atoms/Movie';
-import CategoryPage from 'components/atoms/CategoryPage';
-import Categories from 'components/atoms/Categories';
+import Genres from 'components/atoms/genres';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,7 +31,7 @@ export default function App() {
                                     <Link to="/movies">Moives</Link>
                                 </li>
                                 <li className="list-group-item">
-                                    <Link to="/by-category">Categories</Link>
+                                    <Link to="/genres">Genres</Link>
                                 </li>
                                 <li className="list-group-item">
                                     <Link to="/admin">Manage Catalogue</Link>
@@ -45,9 +44,8 @@ export default function App() {
                         <Routes>
                             <Route path="/" element={<Home />}></Route>
                             <Route path="/admin" element={<Admin />}></Route>
-                            <Route path="/by-category" element={<CategoryPage />}></Route>
-                            <Route path="/by-category/drama" element={<Categories title={'Drama'} />}></Route>
-                            <Route path="/by-category/comedy" element={<Categories title={'Comedy'} />}></Route>
+                            <Route path="/genres" element={<Genres />}></Route>
+
                             <Route path="/movies" element={<Movies />}></Route>
                             <Route path="/movies/:id" element={<Movie />}></Route>
                         </Routes>

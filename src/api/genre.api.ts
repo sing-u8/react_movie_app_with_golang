@@ -2,9 +2,9 @@ import { env } from 'env/env.dev';
 
 export const url = env.protocol + env.subDomain + env.domain + env.port + env.version;
 
-export async function getAllMovies() {
+export async function getAllGenres() {
     console.log('getAllMovies : ', url, `${url}/movies`, 'http');
-    return fetch(`${url}/movies`).then(res => {
+    return fetch(`${url}/genres`).then(res => {
         if (res.status !== 200) {
             throw new Error(`getAllMovies - Invalid response code : ${res.status}`);
         }
@@ -12,8 +12,8 @@ export async function getAllMovies() {
     });
 }
 
-export async function getMovie(id: string) {
-    return fetch(`${url}/movie/${id}`).then(res => {
+export async function getGenre(id: string) {
+    return fetch(`${url}/genre/${id}`).then(res => {
         if (res.status !== 200) {
             throw new Error(`getMovie - Invalid response code : ${res.status}`);
         }

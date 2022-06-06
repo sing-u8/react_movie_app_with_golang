@@ -8,13 +8,20 @@ import { Movie } from 'schema/movie.interface';
 export default function Movies() {
     const [movies, setMovies] = useState<Array<Movie>>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         (async function getAllMovies() {
-            const json = await movieApi.getAllMovies();
-            setMovies(json.movies);
-            setIsLoaded(true);
-            console.log('movies, isloaded : ', movies, isLoaded);
+            try {
+                const json = await movieApi.getAllMovies();
+                setMovies(json.movies);
+                setIsLoaded(true);
+                console.log('movies, isloaded : ', movies, isLoaded);
+            } catch (err) {
+                console.log('catch err : ', err);
+                setIsLoaded(true);
+                // setError(err)
+            }
         })();
     }, []);
 

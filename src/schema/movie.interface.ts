@@ -12,14 +12,14 @@ export interface Movie {
 
 export function createInitMovie(): Movie {
     return {
-        id: -1,
+        id: 0,
         title: '',
-        runtime: -1,
+        runtime: 0,
         year: 0,
         mpaa_rating: '',
         genres: {},
         description: '',
         release_date: '',
-        rating: -1,
+        rating: 0,
     };
 }

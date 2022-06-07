@@ -8,7 +8,7 @@ import Admin from 'components/atoms/Admin';
 import Movie from 'components/atoms/Movie';
 import Genres from 'components/atoms/genres';
 import OneGenre from 'components/atoms/OneGenre';
-import EditMovie from 'components/atoms/EditMovie/EditMovie';
+import EditMovie from 'components/molecules/EditMovie/EditMovie';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';

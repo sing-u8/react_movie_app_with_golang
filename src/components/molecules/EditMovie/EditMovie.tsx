@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import './EditMovie.css';
 import { Movie as MovieType, createInitMovie } from 'schema/movie.interface';
+import Input from 'components/atoms/forms/input';
 
 export default function EditMovie() {
     const movieInit = createInitMovie();
@@ -40,26 +41,10 @@ export default function EditMovie() {
             <hr />
             <form onSubmit={handleSubmit}>
                 <input type="hidden" name="id" id="id" value={state.movie.id} onChange={handleChange} />
-                <div className="mb-3">
-                    <label htmlFor="title" className="form-label">
-                        Title
-                    </label>
-                    <input type="text" className="form-control" id="title" name="title" value={state.movie.title} onChange={handleChange} />
-                </div>
 
-                <div className="mb-3">
-                    <label htmlFor="release_date" className="form-label">
-                        Release date
-                    </label>
-                    <input type="text" className="form-control" id="release_date" name="release_date" value={state.movie.release_date} onChange={handleChange} />
-                </div>
-
-                <div className="mb-3">
-                    <label htmlFor="runtime" className="form-label">
-                        Runtime
-                    </label>
-                    <input type="text" className="form-control" id="runtime" name="runtime" value={state.movie.runtime} onChange={handleChange} />
-                </div>
+                <Input title={'Title'} type={'text'} name={'title'} value={state.movie.title} handleChange={handleChange} />
+                <Input title={'Release date'} type={'date'} name={'release_date'} value={state.movie.release_date} handleChange={handleChange} />
+                <Input title={'Runtime'} type={'text'} name={'runtime'} value={state.movie.runtime} handleChange={handleChange} />
 
                 <div className="mb-3">
                     <label htmlFor="mpaa_rating" className="form-label">
@@ -85,12 +70,7 @@ export default function EditMovie() {
                     </select>
                 </div>
 
-                <div className="mb-3">
-                    <label htmlFor="rating" className="form-label">
-                        Rating
-                    </label>
-                    <input type="text" className="form-control" id="rating" name="rating" value={state.movie.rating} onChange={handleChange} />
-                </div>
+                <Input title={'Rating'} type={'text'} name={'rating'} value={state.movie.rating} handleChange={handleChange} />
 
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">

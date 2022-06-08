@@ -30,3 +30,17 @@ export async function getMovie(id: string) {
         return res.json();
     });
 }
+
+// body --> JSON.stringify(Object.fromEntries(data.entries())) ;
+export function createMovie(payload: { [k: string]: FormDataEntryValue }) {
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(payload),
+    };
+    return fetch(`${url}/admin/editmovie`, requestOptions).then(res => {
+        if (res.status !== 200) {
+            throw new Error(`getMovie - Invalid response code : ${res.status}`);
+        }
+        return res.json();
+    });
+}

@@ -43,6 +43,12 @@ export default function EditMovie() {
     function handleSubmit(evt: any) {
         console.log('Form was submitted');
         evt.preventDefault();
+
+        const data = new FormData(evt.target);
+        const payload = Object.fromEntries(data.entries());
+        movieApi.createMovie(payload).then(data => {
+            console.log(data);
+        });
     }
 
     useEffect(() => {

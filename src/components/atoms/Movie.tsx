@@ -14,10 +14,9 @@ export default function Movie() {
     const [error, setError] = useState<Error>();
 
     useEffect(() => {
-        (async function getAllMovies() {
+        (async function getMovie() {
             try {
                 const json = await movieApi.getMovie(id as string);
-                console.log('get movie : ', json);
                 setMovie(json.movie);
                 setIsLoaded(true);
             } catch (err) {

@@ -27,6 +27,11 @@ export default function EditMovie() {
             { id: 'NC17', value: 'NC17' },
         ],
     });
+    const [errors, setErrors] = useState<string[]>([]);
+
+    function hasError(key: string) {
+        return errors.indexOf(key) !== -1;
+    }
 
     function handleChange(evt: any) {
         const value = evt.target.value;
@@ -43,6 +48,18 @@ export default function EditMovie() {
     function handleSubmit(evt: any) {
         console.log('Form was submitted');
         evt.preventDefault();
+
+        // client side validation
+        const errors = [];
+        if (state.movie.title === '') {
+            errors.push('title');
+        }
+
+        setErrors(errors);
+
+        if (errors.length > 0) {
+            return false;
+        }
 
         const data = new FormData(evt.target);
         const payload = Object.fromEntries(data.entries());
@@ -108,7 +125,16 @@ export default function EditMovie() {
                     <form onSubmit={handleSubmit}>
                         <input type="hidden" name="id" id="id" value={state.movie.id} onChange={handleChange} />
 
-                        <Input title={'Title'} type={'text'} name={'title'} value={state.movie.title} handleChange={handleChange} />
+                        <Input
+                            title={'Title'}
+                            className={hasError('title') ? 'is-invalid' : ''}
+                            type={'text'}
+                            name={'title'}
+                            value={state.movie.title}
+                            handleChange={handleChange}
+                            errorDiv={hasError('title') ? 'text-danger' : 'd-none'}
+                            errorMsg={'Please enter a title'}
+                        />
                         <Input title={'Release date'} type={'date'} name={'release_date'} value={state.movie.release_date} handleChange={handleChange} />
                         <Input title={'Runtime'} type={'text'} name={'runtime'} value={state.movie.runtime} handleChange={handleChange} />
 

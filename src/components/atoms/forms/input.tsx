@@ -7,6 +7,9 @@ type Props = {
     value: string | number;
     handleChange: (evt: any) => void;
     placeholder?: string;
+    errorDiv?: string;
+    errorMsg?: string;
+    className?: string;
 };
 
 const Input: React.FC<Props> = props => {
@@ -15,7 +18,16 @@ const Input: React.FC<Props> = props => {
             <label htmlFor={props.name} className="form-label">
                 {props.title}
             </label>
-            <input type={props.type} className="form-control" id={props.name} name={props.name} value={props.value} onChange={props.handleChange} placeholder={props.placeholder} />
+            <input
+                type={props.type}
+                className={`form-control ${props.className}`}
+                id={props.name}
+                name={props.name}
+                value={props.value}
+                onChange={props.handleChange}
+                placeholder={props.placeholder}
+            />
+            <div className={props.errorDiv}>{props.errorMsg}</div>
         </div>
     );
 };

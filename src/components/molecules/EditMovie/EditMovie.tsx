@@ -1,11 +1,24 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import './EditMovie.css';
 import { Movie as MovieType, createInitMovie } from 'schema/movie.interface';
-import Input from 'components/atoms/forms/input';
+import Input from 'components/atoms/forms/Input';
+import TextArea from 'components/atoms/forms/TextArea';
+import Select from 'components/atoms/forms/Select';
 
 export default function EditMovie() {
     const movieInit = createInitMovie();
-    const [state, setState] = useState<{ movie: MovieType; isLoaded: boolean; error: Error }>({ movie: movieInit, isLoaded: false, error: new Error('') });
+    const [state, setState] = useState<{ movie: MovieType; isLoaded: boolean; error: Error; mpaaOptions: Array<{ id: string; value: string }> }>({
+        movie: movieInit,
+        isLoaded: false,
+        error: new Error(''),
+        mpaaOptions: [
+            { id: 'G', value: 'G' },
+            { id: 'PG', value: 'PG' },
+            { id: 'PG13', value: 'PG13' },
+            { id: 'R', value: 'R' },
+            { id: 'NC17', value: 'NC17' },
+        ],
+    });
 
     function handleChange(evt: any) {
         const value = evt.target.value;
@@ -30,7 +43,6 @@ export default function EditMovie() {
             ...state,
             movie: {
                 ...movieInit,
-                ...{ title: 'The Godfather', mpaa_rating: 'R' },
             },
         });
     }, []);
@@ -46,38 +58,11 @@ export default function EditMovie() {
                 <Input title={'Release date'} type={'date'} name={'release_date'} value={state.movie.release_date} handleChange={handleChange} />
                 <Input title={'Runtime'} type={'text'} name={'runtime'} value={state.movie.runtime} handleChange={handleChange} />
 
-                <div className="mb-3">
-                    <label htmlFor="mpaa_rating" className="form-label">
-                        MPAA Rating
-                    </label>
-                    <select name="mpaa_rating" className="form-select" value={state.movie.mpaa_rating} onChange={handleChange}>
-                        <option className="form-select">Choose...</option>
-                        <option className="form-select" value="G">
-                            G
-                        </option>
-                        <option className="form-select" value="PG">
-                            PG
-                        </option>
-                        <option className="form-select" value="PG13">
-                            PG13
-                        </option>
-                        <option className="form-select" value="R">
-                            R
-                        </option>
-                        <option className="form-select" value="NC17">
-                            NC17
-                        </option>
-                    </select>
-                </div>
+                <Select title={'MPAA Rating'} name={'mpaa_rating'} options={state.mpaaOptions} value={state.movie.mpaa_rating} handleChange={handleChange} placeholder={'Choose...'} />
 
                 <Input title={'Rating'} type={'text'} name={'rating'} value={state.movie.rating} handleChange={handleChange} />
 
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">
-                        Description
-                    </label>
-                    <textarea className="form-control" id="description" name="description" value={state.movie.description} rows={3} onChange={handleChange} />
-                </div>
+                <TextArea title={'Description'} name={'description'} value={state.movie.description} rows={3} handleChange={handleChange} />
 
                 <hr />
 

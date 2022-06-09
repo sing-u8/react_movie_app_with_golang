@@ -7,6 +7,7 @@ import { Movie as MovieType, createInitMovie } from 'schema/movie.interface';
 import Input from 'components/atoms/forms/Input';
 import TextArea from 'components/atoms/forms/TextArea';
 import Select from 'components/atoms/forms/Select';
+import Alert from 'components/atoms/ui-components/Alert';
 
 import * as movieApi from 'api/movie.api';
 import _ from 'lodash';
@@ -15,7 +16,7 @@ export default function EditMovie() {
     const { id } = useParams();
 
     const movieInit = createInitMovie();
-    const [state, setState] = useState<{ movie: MovieType; isLoaded: boolean; error: Error; mpaaOptions: Array<{ id: string; value: string }> }>({
+    const [state, setState] = useState<{ movie: MovieType; isLoaded: boolean; error: Error; mpaaOptions: Array<{ id: string; value: string }>; alert: { type: string; message: string } }>({
         movie: movieInit,
         isLoaded: false,
         error: undefined,
@@ -26,6 +27,10 @@ export default function EditMovie() {
             { id: 'R', value: 'R' },
             { id: 'NC17', value: 'NC17' },
         ],
+        alert: {
+            type: 'd-none',
+            message: '',
+        },
     });
     const [errors, setErrors] = useState<string[]>([]);
 
@@ -64,7 +69,17 @@ export default function EditMovie() {
         const data = new FormData(evt.target);
         const payload = Object.fromEntries(data.entries());
         movieApi.createMovie(payload).then(data => {
-            console.log(data);
+            if (data.error) {
+                setState({
+                    ...state,
+                    alert: { type: 'alert-danger', message: data.error.message },
+                });
+            } else {
+                setState({
+                    ...state,
+                    alert: { type: 'alert-success', message: 'Changes saved!' },
+                });
+            }
         });
     }
 
@@ -121,6 +136,7 @@ export default function EditMovie() {
             ) : (
                 <Fragment>
                     <h2>Add/Edit Movie</h2>
+                    <Alert alertType={state.alert.type} alertMessage={state.alert.message} />
                     <hr />
                     <form onSubmit={handleSubmit}>
                         <input type="hidden" name="id" id="id" value={state.movie.id} onChange={handleChange} />

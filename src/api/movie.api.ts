@@ -44,3 +44,15 @@ export function createMovie(payload: { [k: string]: FormDataEntryValue }) {
         return res.json();
     });
 }
+
+export function deleteMovie(id: string) {
+    const requestOptions = {
+        method: 'DELETE',
+    };
+    return fetch(`${url}/admin/deletemovie/${id}`, requestOptions).then(res => {
+        if (res.status !== 200) {
+            throw new Error(`deleteMovie - Invalid response code : ${res.status}`);
+        }
+        return res.json();
+    });
+}

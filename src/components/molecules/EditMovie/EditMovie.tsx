@@ -1,6 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import './EditMovie.css';
+
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { Movie as MovieType, createInitMovie } from 'schema/movie.interface';
 
@@ -14,6 +17,7 @@ import _ from 'lodash';
 
 export default function EditMovie() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const movieInit = createInitMovie();
     const [state, setState] = useState<{ movie: MovieType; isLoaded: boolean; error: Error; mpaaOptions: Array<{ id: string; value: string }>; alert: { type: string; message: string } }>({
@@ -75,11 +79,43 @@ export default function EditMovie() {
                     alert: { type: 'alert-danger', message: data.error.message },
                 });
             } else {
-                setState({
-                    ...state,
-                    alert: { type: 'alert-success', message: 'Changes saved!' },
-                });
+                // setState({
+                //     ...state,
+                //     alert: { type: 'alert-success', message: 'Changes saved!' },
+                // });
+                navigate('/admin');
             }
+        });
+    }
+
+    function confirmDelete(e?: any) {
+        console.log('would delete movie id', state.movie.id);
+        confirmAlert({
+            title: 'Delete Movie?',
+            message: 'Are you sure?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+                        movieApi.deleteMovie(String(state.movie.id)).then(data => {
+                            if (data.error) {
+                                setState({
+                                    ...state,
+                                    alert: { type: 'alert-danger', message: data.error.message },
+                                });
+                            } else {
+                                navigate('/admin');
+                            }
+                        });
+                    },
+                },
+                {
+                    label: 'No',
+                    onClick: () => {
+                        return false;
+                    },
+                },
+            ],
         });
     }
 
@@ -163,11 +199,15 @@ export default function EditMovie() {
                         <hr />
 
                         <button className="btn btn-primary">Save</button>
+                        <Link to="/admin" className="btn btn-warning ms-1">
+                            Cancel
+                        </Link>
+                        {state.movie.id > 0 && (
+                            <a href="#!" onClick={() => confirmDelete()} className="btn btn-danger ms-1">
+                                Delete
+                            </a>
+                        )}
                     </form>
-
-                    <div className="mt-3">
-                        <pre>{JSON.stringify({ state }, null, 3)}</pre>
-                    </div>
                 </Fragment>
             )}
         </Fragment>

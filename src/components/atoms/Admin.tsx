@@ -36,7 +36,7 @@ export default function Admin() {
                     <h2>Manage Catalogue</h2>
                     <div className="list-group">
                         {movies.map(m => (
-                            <Link key={m.id} to={`/movies/${m.id}`} className="list-group-item list-group-item-action">
+                            <Link key={m.id} to={`/admin/movie/${m.id}`} className="list-group-item list-group-item-action">
                                 {m.title}
                             </Link>
                         ))}

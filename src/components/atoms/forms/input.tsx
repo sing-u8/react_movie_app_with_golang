@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Props = {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     title: string;
     type: string;
     name: string;
@@ -10,7 +10,7 @@ type Props = {
     errorDiv?: string;
     errorMsg?: string;
     className?: string;
-};
+}
 
 const Input: React.FC<Props> = props => {
     return (

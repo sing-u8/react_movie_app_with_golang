@@ -101,7 +101,7 @@ const App: React.FC<Props> = props => {
                             <Route path="/movies" element={<Movies />}></Route>
                             <Route path="/movies/:id" element={<Movie />}></Route>
 
-                            <Route path="/login" element={(props: any) => <Login {...props} handleJWTChange={handleJWTChange} />}></Route>
+                            <Route path="/login" element={<Login {...props} handleJWTChange={handleJWTChange} />}></Route>
                         </Routes>
                     </div>
                 </div>

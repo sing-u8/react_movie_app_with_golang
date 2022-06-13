@@ -2,6 +2,8 @@ import React, { Component, Fragment, useState } from 'react';
 import Input from 'components/atoms/forms/Input';
 import Alert from 'components/atoms/ui-components/Alert';
 
+import * as loginApi from 'api/login.api';
+
 type Props = {
     handleJWTChange?: (jwt: string) => void;
 };
@@ -30,13 +32,42 @@ const Login: React.FC<Props> = props => {
     function handleChange(evt: any) {
         const value = evt.target.value;
         const name = evt.target.name;
-        setState(prevState => ({
-            ...prevState,
-            [name]: value,
-        }));
+        console.log('handleChange -- ', value, name, { ...state, [name]: value });
+        setState({ ...state, [name]: value });
     }
     function handleSubmit(evt: any) {
         evt.preventDefault();
+        const errors = [];
+
+        if (state.email === '') {
+            errors.push('email');
+        }
+
+        if (state.password === '') {
+            errors.push('password');
+        }
+
+        setState({ ...state, errors: errors });
+
+        if (errors.length > 0) {
+            return false;
+        }
+        const data = new FormData(evt.target);
+        const payload = Object.fromEntries(data.entries());
+
+        loginApi.signIn(payload).then(data => {
+            if (data.error) {
+                setState({
+                    ...state,
+                    alert: {
+                        type: 'alert-danger',
+                        message: data.error.message,
+                    },
+                });
+            } else {
+                console.log(data);
+            }
+        });
     }
     function hasError(key: string) {
         return state.errors.indexOf(key) !== -1;
@@ -57,7 +88,7 @@ const Login: React.FC<Props> = props => {
                     className={hasError('email') ? 'is-invalid' : ''}
                     errorDiv={hasError('email') ? 'text-danger' : 'd-none'}
                     errorMsg={'Please enter a valid email address'}
-                    value={''}
+                    value={state.email}
                 />
 
                 <Input
@@ -68,7 +99,7 @@ const Login: React.FC<Props> = props => {
                     className={hasError('password') ? 'is-invalid' : ''}
                     errorDiv={hasError('password') ? 'text-danger' : 'd-none'}
                     errorMsg={'Please enter a password'}
-                    value={''}
+                    value={state.password}
                 />
 
                 <hr />

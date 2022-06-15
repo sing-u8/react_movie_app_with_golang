@@ -35,7 +35,7 @@ const App: React.FC<Props> = props => {
 
     useEffect(() => {
         checkJWTExist();
-    }, []);
+    }, [state.jwt]);
 
     const [loginLink, setLoginLink] = useState<JSX.Element>();
     function checkJWTExist() {
@@ -85,6 +85,7 @@ const App: React.FC<Props> = props => {
                                     </Fragment>
                                 )}
                             </ul>
+                            <pre>{JSON.stringify(state, null, 3)}</pre>
                         </nav>
                     </div>
 
@@ -92,8 +93,8 @@ const App: React.FC<Props> = props => {
                         <Routes>
                             <Route path="/" element={<Home />}></Route>
 
-                            <Route path="/admin" element={<Admin />}></Route>
-                            <Route path="/admin/movie/:id" element={<EditMovie />}></Route>
+                            <Route path="/admin" element={<Admin {...props} jwt={state.jwt} />}></Route>
+                            <Route path="/admin/movie/:id" element={<EditMovie {...props} jwt={state.jwt} />}></Route>
 
                             <Route path="/genres" element={<Genres />}></Route>
                             <Route path="/genre/:id" element={<OneGenre />}></Route>

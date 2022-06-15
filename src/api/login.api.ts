@@ -9,9 +9,9 @@ export async function signIn(payload: { [k: string]: FormDataEntryValue }) {
         body: JSON.stringify(payload),
     };
     return fetch(`${url}/signin`, requestOptions).then(res => {
-        if (res.status !== 200) {
-            throw new Error(`signIn - Invalid response code : ${res.status}`);
-        }
+        // if (res.status !== 200) {
+        //     throw new Error(`signIn - Invalid response code : ${res.status}`);
+        // }
         return res.json();
     });
 }

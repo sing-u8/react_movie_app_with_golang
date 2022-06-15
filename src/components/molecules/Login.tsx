@@ -1,4 +1,5 @@
 import React, { Component, Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from 'components/atoms/forms/Input';
 import Alert from 'components/atoms/ui-components/Alert';
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const Login: React.FC<Props> = props => {
+    const navigate = useNavigate();
     const [state, setState] = useState<{
         email: string;
         password: string;
@@ -32,7 +34,6 @@ const Login: React.FC<Props> = props => {
     function handleChange(evt: any) {
         const value = evt.target.value;
         const name = evt.target.name;
-        console.log('handleChange -- ', value, name, { ...state, [name]: value });
         setState({ ...state, [name]: value });
     }
     function handleSubmit(evt: any) {
@@ -66,9 +67,16 @@ const Login: React.FC<Props> = props => {
                 });
             } else {
                 console.log(data);
+                handleJWTChange(Object.values(data)[0] as string);
+                navigate('/admin');
             }
         });
     }
+
+    function handleJWTChange(jwt: string) {
+        props.handleJWTChange(jwt);
+    }
+
     function hasError(key: string) {
         return state.errors.indexOf(key) !== -1;
     }

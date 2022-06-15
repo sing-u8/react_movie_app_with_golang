@@ -15,7 +15,9 @@ import Alert from 'components/atoms/ui-components/Alert';
 import * as movieApi from 'api/movie.api';
 import _ from 'lodash';
 
-export default function EditMovie() {
+type Props = any;
+
+const EditMovie: React.FC<Props> = props => {
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -55,7 +57,6 @@ export default function EditMovie() {
     }
 
     function handleSubmit(evt: any) {
-        console.log('Form was submitted');
         evt.preventDefault();
 
         // client side validation
@@ -72,7 +73,8 @@ export default function EditMovie() {
 
         const data = new FormData(evt.target);
         const payload = Object.fromEntries(data.entries());
-        movieApi.createMovie(payload).then(data => {
+
+        movieApi.createMovie(payload, props.jwt).then(data => {
             if (data.error) {
                 setState({
                     ...state,
@@ -89,7 +91,6 @@ export default function EditMovie() {
     }
 
     function confirmDelete(e?: any) {
-        console.log('would delete movie id', state.movie.id);
         confirmAlert({
             title: 'Delete Movie?',
             message: 'Are you sure?',
@@ -97,7 +98,7 @@ export default function EditMovie() {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        movieApi.deleteMovie(String(state.movie.id)).then(data => {
+                        movieApi.deleteMovie(String(state.movie.id), props.jwt).then(data => {
                             if (data.error) {
                                 setState({
                                     ...state,
@@ -120,6 +121,10 @@ export default function EditMovie() {
     }
 
     useEffect(() => {
+        if (props.jwt === '') {
+            navigate('/login');
+        }
+
         const movieInit = createInitMovie();
         setState({
             ...state,
@@ -212,4 +217,6 @@ export default function EditMovie() {
             )}
         </Fragment>
     );
-}
+};
+
+export default EditMovie;

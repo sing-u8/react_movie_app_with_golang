@@ -1,16 +1,24 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import * as movieApi from 'api/movie.api';
 
 import { Movie } from 'schema/movie.interface';
 
-export default function Admin() {
+type Props = any;
+
+const Admin: React.FC<Props> = props => {
+    const navigate = useNavigate();
+
     const [movies, setMovies] = useState<Array<Movie>>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [error, setError] = useState<Error>();
 
     useEffect(() => {
+        if (props.jwt === '') {
+            navigate('/login');
+        }
+
         (async function getAllMovies() {
             try {
                 const json = await movieApi.getAllMovies();
@@ -45,4 +53,6 @@ export default function Admin() {
             )}
         </Fragment>
     );
-}
+};
+
+export default Admin;

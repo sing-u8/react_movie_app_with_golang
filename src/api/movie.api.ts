@@ -32,11 +32,17 @@ export async function getMovie(id: string) {
 }
 
 // body --> JSON.stringify(Object.fromEntries(data.entries())) ;
-export function createMovie(payload: { [k: string]: FormDataEntryValue }) {
+export function createMovie(payload: { [k: string]: FormDataEntryValue }, jwt: string) {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', `Bearer ` + jwt);
+
     const requestOptions = {
         method: 'POST',
         body: JSON.stringify(payload),
+        headers: myHeaders,
     };
+
     return fetch(`${url}/admin/editmovie`, requestOptions).then(res => {
         if (res.status !== 200) {
             throw new Error(`getMovie - Invalid response code : ${res.status}`);
@@ -45,9 +51,14 @@ export function createMovie(payload: { [k: string]: FormDataEntryValue }) {
     });
 }
 
-export function deleteMovie(id: string) {
+export function deleteMovie(id: string, jwt: string) {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', `Bearer ` + jwt);
+
     const requestOptions = {
         method: 'DELETE',
+        headers: myHeaders,
     };
     return fetch(`${url}/admin/deletemovie/${id}`, requestOptions).then(res => {
         if (res.status !== 200) {

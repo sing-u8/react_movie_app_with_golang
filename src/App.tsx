@@ -10,6 +10,7 @@ import Genres from 'components/atoms/genres';
 import OneGenre from 'components/atoms/OneGenre';
 import EditMovie from 'components/molecules/EditMovie/EditMovie';
 import Login from 'components/molecules/Login';
+import GraphQL from 'components/molecules/GraphQL/GraphQL';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -93,8 +94,10 @@ const App: React.FC<Props> = props => {
                                         </li>
                                     </Fragment>
                                 )}
+                                <li className="list-group-item">
+                                    <Link to="/graphql">GraphQL</Link>
+                                </li>
                             </ul>
-                            <pre>{JSON.stringify(state, null, 3)}</pre>
                         </nav>
                     </div>
 
@@ -110,6 +113,8 @@ const App: React.FC<Props> = props => {
 
                             <Route path="/movies" element={<Movies />}></Route>
                             <Route path="/movies/:id" element={<Movie />}></Route>
+
+                            <Route path="/graphql" element={<GraphQL />}></Route>
 
                             <Route path="/login" element={<Login {...props} handleJWTChange={handleJWTChange} />}></Route>
                         </Routes>

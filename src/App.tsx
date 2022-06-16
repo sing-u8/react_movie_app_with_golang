@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
 
 // components
-import Home from 'components/atoms/Home';
+import Home from 'components/molecules/Home/Home';
 import Movies from 'components/atoms/Movies';
 import Admin from 'components/atoms/Admin';
 import Movie from 'components/atoms/Movie';

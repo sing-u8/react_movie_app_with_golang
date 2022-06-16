@@ -68,6 +68,7 @@ const Login: React.FC<Props> = props => {
             } else {
                 console.log(data);
                 handleJWTChange(Object.values(data)[0] as string);
+                window.localStorage.setItem('jwt', JSON.stringify(Object.values(data)[0]));
                 navigate('/admin');
             }
         });

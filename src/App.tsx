@@ -31,8 +31,17 @@ const App: React.FC<Props> = props => {
             ...state,
             jwt: '',
         });
+        window.localStorage.removeItem('jwt');
     }
 
+    useEffect(() => {
+        const t = window.localStorage.getItem('jwt');
+        if (t) {
+            if (state.jwt === '') {
+                setState({ ...state, jwt: JSON.parse(t) });
+            }
+        }
+    }, []);
     useEffect(() => {
         checkJWTExist();
     }, [state.jwt]);

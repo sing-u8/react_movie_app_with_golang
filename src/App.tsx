@@ -14,6 +14,7 @@ import GraphQL from 'components/molecules/GraphQL/GraphQL';
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MovieGraphQL from 'components/molecules/MovieGraphQL';
 
 type Props = any;
 
@@ -113,6 +114,7 @@ const App: React.FC<Props> = props => {
 
                             <Route path="/movies" element={<Movies />}></Route>
                             <Route path="/movies/:id" element={<Movie />}></Route>
+                            <Route path="/moviesgraphql/:id" element={<MovieGraphQL />}></Route>
 
                             <Route path="/graphql" element={<GraphQL />}></Route>
 

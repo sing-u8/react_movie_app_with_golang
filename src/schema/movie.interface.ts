@@ -8,6 +8,7 @@ export interface Movie {
     description: string;
     release_date: string;
     rating: string;
+    poster: string;
 }
 
 export function createInitMovie(): Movie {
@@ -21,5 +22,6 @@ export function createInitMovie(): Movie {
         description: '',
         release_date: '',
         rating: '',
+        poster: '',
     };
 }
